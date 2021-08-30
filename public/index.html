@@ -11,24 +11,37 @@
     </head>
     <body>
         <h1>Auswertung von Serverzugriffen von EPA</h1>
-
+      <div class="container">
         <div class="block">
           <h2>HTTP Methoden</h2>
           <canvas id="methodChart" width="400" height="400"></canvas>
+
+          <div id="method__stats" class="stats">
+          </div>
         </div>
         <div class="block">
           <h2>Requests pro Minute</h2>
           <canvas id="requestsPerMinuteChart" width="400" height="400"></canvas>
+          <div id="request__stats" class="stats">
+          </div>
         </div>
         <div class="block">
           <h2>Antwortcodes</h2>
           <canvas id="responseCodeChart" width="400" height="400"></canvas>
+          <div id="code__stats" class="stats">
+          </div>
         </div>
         <div class="block">
           <h2>Antwortgrösse</h2>
           <canvas id="documentSizeChart" width="400" height="400"></canvas>
+          <div id="document__stats" class="stats">
+          </div>
         </div>
+      </div>
 
+      <div class="block">
+        <p>Information collected by Laura Bottomley (laurab@ee.duke.edu) of Duke University.</p>
+      </div>
 
         <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
         <!--

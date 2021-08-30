@@ -56,11 +56,31 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-.block {
-  float: left;
-  width: 50%;
+
+h1,h2{
+    text-align: center;
+    margin: 0 auto;
 }
 
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.block{
+    width: 30rem;
+    margin: 0 auto;
+    margin-bottom: 4rem;
+}
+
+.stats{
+    text-align: center;
+    
+}
 
 
 

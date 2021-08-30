@@ -1,14 +1,9 @@
-/*jQuery(document).ready(function() {
- // var epaDataRecords = JSON.parse(window.epadata);
-
-  // TODO: implementation
-});
-*/
-
-const requestsPerMinuteChartCanvas = document
-  .querySelector("#requestsPerMinuteChart");
-const documentSizeChartCanvas = document
-  .querySelector("#documentSizeChart");
+const requestsPerMinuteChartCanvas = document.querySelector("#requestsPerMinuteChart");
+const documentSizeChartCanvas = document.querySelector("#documentSizeChart");
+const methodStats = document.querySelector("#method__stats");
+const requestStats = document.querySelector("#request__stats");
+const codeStats = document.querySelector("#code__stats");
+const documentStats = document.querySelector("#document__stats");
 
 const url = "/data";
 const getData = fetch(url)
@@ -16,18 +11,14 @@ const getData = fetch(url)
   .then((data) => mostrarDatos(data))
   .catch((err) => console.log(err));
 
-
-
-
-function mostrarDatos({ methods, requests, codes, size }) {
-  methodsGraph(methods);
-  codesGraph(codes);
+function mostrarDatos({ methods, requests, codes, size }) { 
+  methodsData(methods);
+  codesData(codes);
   requestData(requests);
-  sizeData(size)
+  sizeData(size);
 }
 
-function methodsGraph(methods) {
-  console.log(methods);
+function methodsData(methods) {
   const config = {
     type: "bar",
     data: {
@@ -48,6 +39,7 @@ function methodsGraph(methods) {
             methods.heads.length,
             methods.invalids.length,
           ],
+          minBarLength: 20,
         },
       ],
     },
@@ -58,15 +50,82 @@ function methodsGraph(methods) {
     document.querySelector("#methodChart").getContext("2d"),
     config
   );
+
+  methodStats.innerHTML = `
+            <p># Of GET's: ${methods.gets.length}</p>
+            <p># Of POST's:${methods.posts.length} </p>
+            <p># Of HEAD's:${methods.heads.length}</p>
+            <p># Of INVALIDS:${methods.invalids.length} </p>
+  `;
 }
 
-function codesGraph(codes) {
+function requestData({ averageNum, averageHour, peakTime }) {
+  const labels = [
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+  ];
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Requests per Hour",
+        data: averageHour,
+        fill: false,
+        borderColor: "rgb(75, 192, 192)",
+        tension: 0.1,
+      },
+    ],
+  };
+  const config = {
+    type: "line",
+    data: data,
+    options: {},
+  };
+  let myChart = new Chart(
+    document.querySelector("#requestsPerMinuteChart").getContext("2d"),
+    config
+  );
+
+  requestStats.innerHTML = `
+              <p>Peak Time at: ${peakTime.hour}:${peakTime.minute} with ${
+    peakTime.maxRequests
+  } Requests</p>
+              <p>Average of Requests: ${Math.round(averageNum)} </p>
+    `;
+}
+
+function codesData(codes) {
   const codes_num = [];
   const codes_calls = [];
 
   codes.forEach((code) => {
     codes_num.push(code.code);
     codes_calls.push(code.calls);
+    codeStats.innerHTML += `
+  <p># Of ${code.code}'s: ${code.calls}</p>
+`;
   });
   console.log(codes_num);
   console.log(codes_calls);
@@ -92,6 +151,7 @@ function codesGraph(codes) {
           ],
           borderColor: "rgb(255, 99, 132)",
           data: codes_calls,
+          minBarLength: 20,
         },
       ],
     },
@@ -104,17 +164,59 @@ function codesGraph(codes) {
   );
 }
 
-function requestData(requests) {
-  var ctx = requestsPerMinuteChartCanvas.getContext('2d');
-  ctx.font = '10px serif';
-  ctx.fillText(`El numero de requests por minuto fue de ${Math.round(requests)}`, 50, 90);
-  console.log(requestsPerMinuteChartCanvas)
-}
+function sizeData({ totalSize, sizeArray }) {
+  const labels = [
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+  ];
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Average Size Per Hour (MegaBytes)",
+        data: sizeArray,
+        fill: false,
+        borderColor: "rgb(75, 192, 192)",
+        tension: 0.1,
+      },
+    ],
+  };
+  const config = {
+    type: "line",
+    data: data,
+    options: {},
+  };
+  let myChart = new Chart(
+    document.querySelector("#documentSizeChart").getContext("2d"),
+    config
+  );
 
-
-function sizeData(size) {
-  var ctx = documentSizeChartCanvas.getContext('2d');
-  ctx.font = '10px serif';
-  ctx.fillText(`El tamaño del archivo fue de ${size}`, 50, 90);
-  console.log(requestsPerMinuteChartCanvas)
+  documentStats.innerHTML = `
+  <p>Total Document Size: ${Math.round(
+    totalSize / Math.pow(1024, 2)
+  )} MegaBytes</p>
+  
+  `;
 }
