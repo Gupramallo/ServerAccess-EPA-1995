@@ -55,6 +55,12 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+body{
+    background-color: rgba(43, 40, 40, 0.22);
+    font-family: 'Open Sans', sans-serif;
+}
 
 
 .spinner-wrapper{
@@ -109,8 +115,12 @@ textarea {
 
 h1,h2{
     text-align: center;
+    width: 100%;
     margin: 0 auto;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
 }
+
 
 
 
@@ -118,6 +128,8 @@ h1,h2{
     display: flex;
     justify-content: center;
     flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
 }
 
 
