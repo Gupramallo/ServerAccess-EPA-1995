@@ -4,6 +4,11 @@ const methodStats = document.querySelector("#method__stats");
 const requestStats = document.querySelector("#request__stats");
 const codeStats = document.querySelector("#code__stats");
 const documentStats = document.querySelector("#document__stats");
+const spinnerWrapper = document.querySelector(".spinner-wrapper");
+
+window.addEventListener("load", () => {
+  spinnerWrapper.parentElement.removeChild(spinnerWrapper);
+});
 
 const url = "/data";
 const getData = fetch(url)
@@ -11,7 +16,7 @@ const getData = fetch(url)
   .then((data) => mostrarDatos(data))
   .catch((err) => console.log(err));
 
-function mostrarDatos({ methods, requests, codes, size }) { 
+function mostrarDatos({ methods, requests, codes, size }) {
   methodsData(methods);
   codesData(codes);
   requestData(requests);
@@ -28,9 +33,9 @@ function methodsData(methods) {
           label: "HTTP METHODS",
           backgroundColor: [
             "rgb(255, 99, 132)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(255, 206, 86, 0.2)",
-            "rgba(75, 192, 192, 0.2)",
+            "rgba(54, 162, 235)",
+            "rgba(255, 206, 86)",
+            "rgba(75, 192, 192)",
           ],
           borderColor: "rgb(255, 99, 132)",
           data: [
@@ -127,7 +132,6 @@ function codesData(codes) {
   <p># Of ${code.code}'s: ${code.calls}</p>
 `;
   });
- 
 
   const config = {
     type: "bar",
@@ -138,13 +142,13 @@ function codesData(codes) {
           label: "RESPONSE CODES",
           backgroundColor: [
             "rgb(255, 99, 132)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(255, 206, 86, 0.2)",
-            "rgba(75, 192, 192, 0.2)",
-            "rgb(255, 99, 132)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(255, 206, 86, 0.2)",
-            "rgba(75, 192, 192, 0.2)",
+            "rgb(54, 162, 235)",
+            "rgb(255, 206, 86)",
+            "rgb(75, 192, 192)",
+            "rgb(199, 0, 57)",
+            "rgb(20, 7, 234)",
+            "rgb(176, 3, 165 )",
+            "rgb(5, 190, 182 )",
           ],
           borderColor: "rgb(255, 99, 132)",
           data: codes_calls,
