@@ -6,14 +6,15 @@ const codeStats = document.querySelector("#code__stats");
 const documentStats = document.querySelector("#document__stats");
 const spinnerWrapper = document.querySelector(".spinner-wrapper");
 
-window.addEventListener("load", () => {
-  spinnerWrapper.parentElement.removeChild(spinnerWrapper);
-});
+
 
 const url = "/data";
 const getData = fetch(url)
   .then((res) => res.json())
   .then((data) => mostrarDatos(data))
+  .then(()=>{
+    spinnerWrapper.parentElement.removeChild(spinnerWrapper);
+  })
   .catch((err) => console.log(err));
 
 function mostrarDatos({ methods, requests, codes, size }) {
