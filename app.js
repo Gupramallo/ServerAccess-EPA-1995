@@ -17,8 +17,8 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-var readed; //Variable that has the DB
-dataLoad(); // In order to load the DB correctly, we do this async function first so we have the DB ready 
+var readed; //Variable that has the data set
+dataLoad(); // In order to load the data set correctly, we do this async function first so we have the data set ready 
 
 app.get("/data", async (req, res) => {
   const methods = await getHTTPMethods(readed); //Returns an object with all the info of the Methods Data
