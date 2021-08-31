@@ -12,9 +12,6 @@ const url = "/data";
 const getData = fetch(url)
   .then((res) => res.json())
   .then((data) => mostrarDatos(data))
-  .then(()=>{
-    spinnerWrapper.parentElement.removeChild(spinnerWrapper);
-  })
   .catch((err) => console.log(err));
 
 function mostrarDatos({ methods, requests, codes, size }) {
@@ -22,6 +19,7 @@ function mostrarDatos({ methods, requests, codes, size }) {
   codesData(codes);
   requestData(requests);
   sizeData(size);
+  spinnerWrapper.parentElement.removeChild(spinnerWrapper);
 }
 
 function methodsData(methods) {
