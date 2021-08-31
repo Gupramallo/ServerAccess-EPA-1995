@@ -9,16 +9,20 @@ const spinnerWrapper = document.querySelector(".spinner-wrapper");
 
 
 const url = "/data";
-const getData = fetch(url)
+const getDataFetched = fetch(url)
   .then((res) => res.json())
-  .then((data) => mostrarDatos(data))
+  .then((data) => showData(data))
   .catch((err) => console.log(err));
 
-function mostrarDatos({ methods, requests, codes, size }) {
+async function getData(methods,requests,codes,size) {
   methodsData(methods);
   codesData(codes);
   requestData(requests);
-  sizeData(size);
+  sizeData(size);  
+}
+ 
+async function showData({ methods, requests, codes, size }) {
+  await getData(methods,requests,codes,size);
   spinnerWrapper.parentElement.removeChild(spinnerWrapper);
 }
 
@@ -47,7 +51,7 @@ function methodsData(methods) {
         },
       ],
     },
-    options: {},
+    options: { },
   };
 
   let myChart = new Chart(
