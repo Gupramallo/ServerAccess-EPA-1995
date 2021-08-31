@@ -127,10 +127,7 @@ function codesData(codes) {
   <p># Of ${code.code}'s: ${code.calls}</p>
 `;
   });
-  console.log(codes_num);
-  console.log(codes_calls);
-
-  console.log(codes);
+ 
 
   const config = {
     type: "bar",
