@@ -163,12 +163,14 @@ function getSize(objs) {
   let hour = objs[0].datetime.hour;
 
   objs.forEach((sizes) => {
-    if (sizes.document_size != "-") {
+
+    if (sizes.response_code == "200" && parseInt(sizes.document_size) < 1000) {
       totalSize += parseInt(sizes.document_size);
+      
       if (sizes.datetime.hour == hour) {
         size +=  parseInt(sizes.document_size);
       }else {
-        sizeArray.push(Math.round(size/Math.pow(1024, 2)));
+        sizeArray.push(size);
         size = 0;
         hour = sizes.datetime.hour
       }    
@@ -179,6 +181,7 @@ function getSize(objs) {
     totalSize,
     sizeArray,
   }
+ 
   return sizeObj;
 }
 

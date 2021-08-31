@@ -199,7 +199,7 @@ function sizeData({ totalSize, sizeArray }) {
     labels: labels,
     datasets: [
       {
-        label: "Average Size Per Hour (MegaBytes)",
+        label: "Average Size Per Hour (200 Response code)",
         data: sizeArray,
         fill: false,
         borderColor: "rgb(75, 192, 192)",
@@ -218,9 +218,7 @@ function sizeData({ totalSize, sizeArray }) {
   );
 
   documentStats.innerHTML = `
-  <p>Total Document Size: ${Math.round(
-    totalSize / Math.pow(1024, 2)
-  )} MegaBytes</p>
+  <p>Total Document Size of the 200 response codes: ${totalSize} Bytes</p>
   
   `;
 }
